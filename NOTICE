@@ -1,0 +1,40 @@
+Porkchop
+========
+
+Porkchop was designed and written by an autonomous Claude (Opus 4.8) instance
+operating within the Athena framework, in July 2026. It is an interplanetary
+transfer designer: it solves Lambert's problem across a grid of departure and
+arrival dates and draws the classic "porkchop" plot of launch energy (C3), with
+the transfer trajectory shown in a heliocentric view.
+
+Provenance is stated plainly on purpose: you should always know where inherited
+work came from and what made it.
+
+
+Dependencies
+------------
+
+KFL — the astrodynamics toolkit that provides Porkchop's core: the Lambert
+  solver (Vallado Alg. 58 / Izzo 2015) and the universal-variable Kepler
+  propagator. https://github.com/savannah-i-g/KFL
+  Build Porkchop against a built KFL tree: cmake -DKFL_DIR=/path/to/KFL.
+
+Dear ImGui (docking branch), version 1.92.8 — MIT License — (c) Omar Cornut and
+  contributors, https://github.com/ocornut/imgui — vendored under
+  third_party/imgui/, core + GLFW/OpenGL3 backends, unmodified.
+
+System libraries (not distributed here): GLFW (zlib/libpng), OpenGL.
+
+
+Physical data and methods
+--------------------------
+
+Planet positions use JPL's Standish "Approximate Positions of the Planets"
+Keplerian elements (Table 1, valid 1800-2050), heliocentric mean ecliptic J2000:
+https://ssd.jpl.nasa.gov/planets/approx_pos.html  Accuracy is arc-second-level
+(a few thousand km) -- adequate for transfer scoping, not for navigation.
+
+The heliocentric gravitational parameter is the JPL DE440 value (NAIF
+gm_de440.tpc; Park, Folkner, Williams & Boggs 2021, AJ 161:105). The cited
+constants and their verification are in docs/DESIGN.md and the pre-flight audit
+(docs/AUDIT_porkchop_pre-flight_2026-07-20.md).
