@@ -21,6 +21,11 @@ pkg_check_modules(GLFW REQUIRED glfw3)
 
 set(KFL_DIR "/home/federated-industrial/Documents/Garden/Athena/KFL_public"
     CACHE PATH "Root of a built KFL tree (github.com/savannah-i-g/KFL)")
+if(NOT EXISTS "${KFL_DIR}/libk26astro_conics/libk26astro_conics.a")
+    message(FATAL_ERROR
+        "KFL not found at KFL_DIR='${KFL_DIR}'. Build KFL "
+        "(https://github.com/savannah-i-g/KFL) and configure with -DKFL_DIR=/path/to/KFL.")
+endif()
 
 # Vendored Dear ImGui (docking) — see NOTICE.
 set(IMGUI_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/imgui)
@@ -51,3 +56,19 @@ target_link_libraries(porkchop PRIVATE
     ${KFL_DIR}/libk26astro_body/libk26astro_body.a
     ${KFL_DIR}/libk26astro_core/libk26astro_core.a
     ${KFL_DIR}/libk26m3d/libk26m3d.a)
+
+# Headless numerical regression test: verifies the ephemeris and porkchop against
+# known physics. Build + run:
+#   cmake --build build --target porkchop_test && ./build/porkchop_test
+add_executable(porkchop_test
+    test/test_porkchop.cpp
+    src/core/julian.cpp src/core/ephemeris.cpp src/core/transfer.cpp)
+target_include_directories(porkchop_test PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${KFL_DIR}/libk26astro_conics/include
+    ${KFL_DIR}/libk26astro_core/include
+    ${KFL_DIR}/libk26m3d/include)
+target_link_libraries(porkchop_test PRIVATE
+    ${KFL_DIR}/libk26astro_conics/libk26astro_conics.a
+    ${KFL_DIR}/libk26astro_core/libk26astro_core.a
+    ${KFL_DIR}/libk26m3d/libk26m3d.a m)

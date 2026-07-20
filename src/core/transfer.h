@@ -3,9 +3,11 @@
 
 namespace pk {
 
-// One porkchop grid cell: the ballistic transfer for a (departure, arrival) date
-// pair, for both Type I (short-way, transfer angle < 180 deg) and Type II
-// (long-way, > 180 deg) prograde solutions. Energies in km^2/s^2, speeds in km/s.
+// One porkchop grid cell. Type I is the short-way transfer (angle < 180 deg, prograde)
+// -- the primary, validated result (its minimum C3 matches the known Earth->Mars value).
+// Type II is KFL's long-way branch (angle > 180 deg; KFL's header treats this as
+// retrograde), provided for completeness and not independently validated. Energies in
+// km^2/s^2, speeds in km/s.
 struct Cell {
     bool   valid_I  = false, valid_II = false;
     double c3_I = 0, vinf_arr_I = 0;    // Type I: launch C3, arrival v-infinity

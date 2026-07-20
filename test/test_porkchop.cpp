@@ -17,6 +17,15 @@ static double dist_au(const State& s) {
 int main() {
     int fails = 0;
 
+    // --- 0. Julian Date (Gregorian, century-correct across 1800-2050) ---
+    printf("== julian date ==\n");
+    double j2000 = julian_date(2000, 1, 1, 12, 0, 0);
+    double j1800 = julian_date(1800, 1, 1, 0, 0, 0);
+    printf("  J2000       -> %.1f  (expect 2451545.0)\n", j2000);
+    printf("  1800-01-01  -> %.1f  (expect 2378496.5)\n", j1800);
+    if (std::fabs(j2000 - 2451545.0) > 1e-6) { printf("  J2000 BAD\n"); ++fails; }
+    if (std::fabs(j1800 - 2378496.5) > 1e-6) { printf("  1800 BAD\n"); ++fails; }
+
     // --- 1. Ephemeris sanity: heliocentric distances at J2000 ---
     printf("== ephemeris (heliocentric distance, AU) ==\n");
     struct { int p; double lo, hi; } rng[] = {

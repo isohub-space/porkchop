@@ -67,9 +67,12 @@ For each grid cell (t1 = departure date, t2 = arrival date, t2 > t1):
   documented future upgrade.
 
 ## Time
-- Calendar (UTC) → Julian Date via the USNO / Vallado `jday` algorithm. J2000 = JD 2451545.0 TT.
-- Apply TT − UTC ≈ 69.184 s (= 32.184 + 37 leap seconds, IERS, current through 2026) when
-  forming the ephemeris JD — negligible at day resolution, applied for consistency.
+- Calendar (UTC) → Julian Date via the Fliegel–Van Flandern (1968) Gregorian formula
+  (century-correct across 1800–2050, consistent with the inverse used for date labels).
+  J2000 = JD 2451545.0 TT.
+- TT − UTC ≈ 69.184 s (= 32.184 + 37 leap seconds, IERS through 2026) is **not applied**:
+  ~69 s is far below the arc-second ephemeris error and cancels in TOF (both epochs share
+  the scale). Documented, not used.
 - TOF = (JD2 − JD1) · 86400 s, **both epochs on the same time scale.**
 
 ## Correctness traps (where a wrong constant/sign/unit silently corrupts results)
