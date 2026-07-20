@@ -19,8 +19,8 @@ find_package(OpenGL REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
 
-set(KFL_DIR "/home/federated-industrial/Documents/Garden/Athena/KFL_public"
-    CACHE PATH "Root of a built KFL tree (github.com/savannah-i-g/KFL)")
+set(KFL_DIR "" CACHE PATH
+    "Root of a built KFL tree (github.com/savannah-i-g/KFL); pass -DKFL_DIR=/path/to/KFL")
 if(NOT EXISTS "${KFL_DIR}/libk26astro_conics/libk26astro_conics.a")
     message(FATAL_ERROR
         "KFL not found at KFL_DIR='${KFL_DIR}'. Build KFL "

@@ -94,10 +94,10 @@ third — say, DESIGN.md's total-Δv proxy (C3 + arrival v∞) — you'd touch f
   of scope for v1 (see DESIGN.md).
 - **No explicit contour lines.** The heatmap is a direct colour-mapped grid, not a contoured plot;
   there's a white ring on the single minimum cell but no iso-C3 contour lines.
-- **`KFL_DIR` is a CMake cache default, not a real dependency lookup.** `CMakeLists.txt` hardcodes
-  a path from the original development machine as the cache default, and there's no
-  `find_package`-style version or compatibility check against KFL — just a linker that will fail
-  if the tree is wrong. Anyone building elsewhere must pass `-DKFL_DIR` explicitly.
+- **`KFL_DIR` is a manual path, not a real dependency lookup.** `CMakeLists.txt` has no default for
+  `KFL_DIR` — you pass `-DKFL_DIR`, or the configure step stops with a clear "KFL not found" error
+  — and there's no `find_package`-style version or compatibility check against KFL, so a mismatched
+  or outdated KFL tree fails at the linker rather than at configure time.
 - **Type I/II only, no multi-revolution.** Porkchop calls KFL's base `k26astro_lambert()` (single
   revolution), not `k26astro_lambert_multi_rev()`. Multi-rev transfers — useful for some
   low-energy windows — aren't modeled or offered as an option.

@@ -36,10 +36,9 @@ cmake -S . -B build -DKFL_DIR=/path/to/KFL && cmake --build build -j
 
 `-DKFL_DIR` must point at the root of a *built* KFL tree (the directory containing
 `libk26astro_conics/`, `libk26astro_body/`, `libk26astro_core/`, and `libk26m3d/` with their
-compiled `.a` archives). `CMakeLists.txt` ships with a cache default for `KFL_DIR` that points at
-the original development machine — it will not exist on yours, so always pass `-DKFL_DIR`
-explicitly. Dear ImGui (docking branch) is vendored under `third_party/imgui/` and needs nothing
-extra.
+compiled `.a` archives). It has no default — pass `-DKFL_DIR` explicitly, or the build stops with
+a clear "KFL not found" message. Dear ImGui (docking branch) is vendored under `third_party/imgui/`
+and needs nothing extra.
 
 ## How it works
 
