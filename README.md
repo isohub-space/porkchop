@@ -76,6 +76,15 @@ distance, for Earth) — adequate for scoping which windows exist and roughly wh
 direct (zero-revolution) **Type I / Type II** transfers are computed; multi-revolution transfers
 aren't yet an option.
 
+## Part of isohub.space
+
+Porkchop is a standalone lab tool in the [isohub.space](https://isohub.space)
+estate — it shares the org but none of the platform's runtime or build. The
+platform itself (and the canonical map of all its repositories) starts at the
+[`isohub-docs` README](https://github.com/isohub-space/isohub-docs/blob/main/README.md);
+production-grade interplanetary planning lives in the platform's
+[Space Flight Dynamics service](https://github.com/isohub-space/isohub).
+
 ## License and provenance
 
 MIT License — see `LICENSE`.
